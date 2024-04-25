@@ -1,0 +1,7 @@
+$private = {
+    token: TOKEN
+}
+
+$public = {
+    prefix: ^
+}

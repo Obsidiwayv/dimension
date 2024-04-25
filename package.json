@@ -3,12 +3,17 @@
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "husky": "^9.0.11"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "eris": "^0.17.2"
+    "eris": "^0.17.2",
+    "type-fest": "^4.17.0"
+  },
+  "scripts": {
+    "prepare": "husky"
   }
 }

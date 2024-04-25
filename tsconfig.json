@@ -28,5 +28,10 @@
     "noPropertyAccessFromIndexSignature": true,
 
     "experimentalDecorators": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@quartz/*": ["./quartz/*"],
+    }
   }
 }
