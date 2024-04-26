@@ -1,17 +1,19 @@
 export  class Library<V> {
-    private storage = {} as { [key: string]: V };
+    private storage = [] as Array<{ key: string, value: V }>;
 
     public put(key: string, value: V) {
-        this.storage[key] = value;
+        this.storage.push({ key, value });
     }
 
     public pull(item: string, cb: () => any): V {
-        const value = this.storage[item];
-        console.log(this.storage)
-        if (!value) {
+        const store = this.storage.find((v) => {
+            console.log(v, item)
+            return v.key === item;
+        });
+        if (!store) {
             return cb();
         } else {
-            return value;
+            return store.value;
         }
     }
 

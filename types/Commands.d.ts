@@ -1,5 +1,6 @@
 import type Runnable from "@quartz/Runnable";
-import type { Client, Message } from "eris";
+import type { Client, EmbedOptions, Message } from "eris";
+import type { ConditionalPick } from "type-fest";
 
 export type CommandData = {
     name: string;
