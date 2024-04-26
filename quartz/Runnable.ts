@@ -12,7 +12,7 @@ export default class Runnable<T> {
      * Mono.block() but executes the next function if specified
      * @link https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html#block--
      */
-    public block(...args: T[]) {
+    public async block(...args: T[]) {
         try {
             this.cb(...args);
 
@@ -24,6 +24,7 @@ export default class Runnable<T> {
                 }
             }
         } catch (e: any) {
+            console.log(e)
             return new Catch(e);
         }
     }
