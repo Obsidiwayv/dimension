@@ -1,15 +1,20 @@
-import type { Asyncify } from "type-fest";
 import Runnable from "./quartz/Runnable";
 import ObjectFactory from "@quartz/factory/ObjectFactory";
 import type { CommandCTX, CommandData } from "types/Commands";
-import type { Client, Message } from "eris";
+import type { Client, Guild, Message } from "eris";
 
-type CTX = [{message: Message, client: Client}];
+export type CTX = [{
+    message: Message;
+    client: Client;
+    context: CommandData;
+}, {
+    guild: Guild;
+}];
 
 export default class extends ObjectFactory<CommandData> {
     private callback!: Runnable<CTX>;
 
-    constructor(public command: CommandData) {
+    constructor(public name: string, public command: CommandData) {
         super()
     }
 
@@ -20,7 +25,8 @@ export default class extends ObjectFactory<CommandData> {
 
     public build() {
         return {
-            ...this.command,
+            name: this.name,
+            context: this.command,
             execute: this.callback
         }
     }

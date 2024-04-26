@@ -3,6 +3,7 @@ import * as config from "config.cmap";
 import QuartzString from "@quartz/objects/QuartzString";
 import { commands } from "global";
 import type { MessageCreateEventArgs } from "types/Commands";
+import type { GuildChannel } from "eris";
 
 export default new Runnable(async ([message, client]: MessageCreateEventArgs) => {
     const content = new QuartzString(message.content);
@@ -19,7 +20,9 @@ export default new Runnable(async ([message, client]: MessageCreateEventArgs) =>
     if (command !== null) {
         const { execute, context } = command;
 
-        execute.block([{ context, message, client }]);
+        const guild = (<GuildChannel>message.channel).guild;
+
+        execute.block([{ context, message, client }, { guild }]);
     }
     
 });

@@ -24,6 +24,7 @@ async function loadCommands() {
     for await (const file of files.scan("./commands")) {
         const command = require(`./commands/${file}`).default;
         console.log(command)
+        console.log(command)
         commands.put(command.name, command);
     }
 }
