@@ -15,19 +15,33 @@ export default await plugin({
 
             for (let l of lines) {
                 l = l.trim();
+            
                 if (l.startsWith(".public")) {
                     isPrivate = false;
+                    continue; // Skip processing the .public line itself
                 }
-
+            
                 if (l === "") {
                     continue;
                 } else if (l.startsWith("$")) {
                     continue;
                 }
-
-                const [key, value] = l.split(':').map(part => part.trim())
-
-                if (l !== "}") {
+            
+                if (l === "}") {
+                    continue;
+                }
+            
+                const separatorIndex = l.indexOf(':');
+                if (separatorIndex === -1) {
+                    continue; // Skip lines without a valid key-value separator
+                }
+            
+                const key = l.slice(0, separatorIndex).trim();
+                const value = l.slice(separatorIndex + 1).trim();
+            
+                if (key === 'prefix') {
+                    json.public[key] = value; // Always put 'prefix' in the public section
+                } else {
                     json[isPrivate ? "private" : "public"][key] = value;
                 }
             }
