@@ -22,8 +22,7 @@ async function loadCommands() {
     const files = new Glob("**/*.ts");
 
     for await (const file of files.scan("./commands")) {
-        const command = require(`./commands/${file}`).default;
-        console.log(command)
+        const command = require(`./commands/${file}`).default.build();
         console.log(command)
         commands.put(command.name, command);
     }

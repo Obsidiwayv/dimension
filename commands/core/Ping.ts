@@ -2,14 +2,15 @@ import Command from "Command";
 import ms from "ms";
 
 export default new Command("ping", {})
-    .setRunnable(([{ message }]) => {
+    .setRunnable(([_, { util }]) => {
         const diff = Date.now();
 
-        message.channel.createMessage("ping?")
+        util.send("ping?")
             .then(msg => {
                 const now = (Date.now() - diff);
 
-                msg.edit(`Pong! \`${now} milliseconds (${ms(now * 7)})\``)
+                if (msg) {
+                    msg.edit(`Pong! \`${now} milliseconds (${ms(now * 7)})\``);
+                }
             })
-    })
-    .build();
+    });
